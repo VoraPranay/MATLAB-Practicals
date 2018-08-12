@@ -1,0 +1,56 @@
+Experiment 7 
+Downsampling and upsampling of discrete time signal
+
+% Aim: Downsampling and upsampling of discrete time signal
+
+clc;
+close all;
+clear all;
+ 
+x = input('Enter the input sequence = ');
+D = input('Enter the down sampling factor = ');
+I = input('Enter the up sampling factor = ');
+disp('input signal = ')
+disp(x);
+N1=length(x); 
+n=0:1:N1-1; 
+subplot(3,1,1); 
+stem(n,x,'k*'); 
+xlabel(' samples (n)  -----------------> ');
+ylabel('Amplitude'); 
+title('input signal x(n)'); 
+ 
+ 
+x2 = x(1:D:N1)
+N2=length(x2);
+n1=0:1:N2-1;
+subplot(3,1,2);
+stem(n1,x2,'k*');
+xlim([0 2*N2]);
+xlabel(' samples (n)  -----------------> ');
+ylabel('Amplitude');
+title('Down sampled signal x(nD)');
+ 
+x3=[zeros(1,I*N1)];
+n2=0:1:I*N1-1;
+j=1:I:I*N1;
+x3(j)=x
+subplot(3,1,3);
+stem(n2,x3,'k*');
+xlabel(' samples (n)  -----------------> ');
+ylabel('Amplitude'); 
+title('Up sampled signal x(n/I)');
+ 
+gtext('Name);
+
+
+Input:
+Enter the input sequence = [1 2 3 4 5 6 7 8]
+Enter the down sampling factor = 3
+Enter the up sampling factor = 3
+
+Output:
+input signal =  1     2     3     4     5     6     7     8
+x2 =  1     4     7
+x3 =  1     0     0     2     0     0     3     0     0     4     	 0     0     5     0     0     6     0     0     7     0     	 0     8     0     0
+
