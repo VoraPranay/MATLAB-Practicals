@@ -1,0 +1,46 @@
+
+DTSP
+EXPERIMENT NO: 1
+REPRESENATION OF DIFFERENT SIGNALS
+AIM:  To represent and plot Different Signals using Matlab commands.
+Software Used:  MATLAB VERSION - 8.6.0.267246 (R2015b).
+PROGRAM:
+%To represent and plot Different Signals using Matlab commands.
+
+%Ramp Signal
+x=0:1:9;
+y=0:1:9;
+subplot(2,2,1);
+stem(x,y);
+xlabel('n');
+ylabel('Amplitude');
+title('Ramp Signal');
+ 
+%Growing Exponential Signal
+t=0:0.1:5;
+z=exp(t);
+subplot(2,2,2);
+stem(t,z);
+xlabel('n');
+ylabel('Amplitude');
+title('Growing Exponential Signal');
+ 
+%Sinusoidal Signal
+T=0:0.1:2*pi;
+subplot(2,2,3);
+stem(T,sin(T));
+xlabel('n');
+ylabel('Amplitude');
+title('Sinusoidal Signal');
+ 
+%Growing Sinusoidal Signal
+x=linspace(0,2*pi,100);
+p=(sin(3*x).*exp(0.3*x));
+subplot(2,2,4)
+stem(x,p)
+xlabel('n');
+ylabel('Amplitude');
+gtext('Name');
+
+OUTPUT:
+ 
