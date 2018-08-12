@@ -1,0 +1,110 @@
+EXPERIMENT NO: 3
+Discrete Time Fourier Transform & Inverse Discrete Time Fourier Transform
+
+AIM: To compute DFT and IDFT of a Discrete Sequence.
+Software used: Matlab ver-8.6 (R2015b).
+
+DFT
+PROGRAM:
+% AIM: To compute DFT and IDFT of a discrete time sequence
+
+clc;
+clear all;
+x=input('Enter the sequence');
+N=length(x);
+subplot(2,2,1);
+stem(x);
+title('x(n)');
+ylabel('Amplitude');
+xlabel('Samples');
+X=zeros(1,N);
+for k=0:N-1;
+    for n=0:N-1;
+        X(k+1)=X(k+1)+x(n+1)*exp(-1j*2*pi*n*k/N);
+    end
+end
+disp(X);
+subplot(2,2,2);
+stem(X);
+title('X(k)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+subplot(2,2,3);
+stem(real(X));
+title('Real part of (X)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+subplot(2,2,4);
+stem(imag(X));
+title('Imaginery part of X(k)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+gtext('Jatin Rai:03');
+
+
+OUTPUT: DFT
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+IDFT
+
+PROGRAM:
+% AIM: To compute DFT and IDFT of a discrete time sequence
+
+clc;
+clear all;
+x=input('Enter the sequence');
+N=length(x);
+subplot(2,2,1);
+stem(x);
+title('input X(k)');
+ylabel('Amplitude');
+xlabel('Samples');
+X=zeros(1,N);
+for k=0:N-1;
+    for n=0:N-1;
+        X(n+1)=X(n+1)+x(k+1)*exp(1j*2*pi*n*k/N);
+    end
+end
+disp(X/4);
+subplot(2,2,2);
+stem(X/4);
+title('IDFT of X(k)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+subplot(2,2,3);
+stem(real(x));
+title('Real part of X(k)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+subplot(2,2,4);
+stem(imag(x));
+title('Imaginery part of X(k)');
+ylabel('Imaginery axis');
+xlabel('Real axis');
+gtext('Pranay Vora:03');
+
+
+
+
+
+
+
+
+
+OUTPUT: IDFT
+ 
+ 
+
