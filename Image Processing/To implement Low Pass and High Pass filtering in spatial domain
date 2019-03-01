@@ -1,0 +1,127 @@
+Aim: - To implement Low Pass and High Pass filtering in spatial domain
+
+Tools Used: - MatLab
+
+Theory: - 
+Low Pass filtering: -
+Low pass filtering as the name suggests removes the high frequency content from the image. It is used to remove noise present in the image. Mask for the low pass filter is:
+
+
+One important thing to note from the spatial response is that all the coefficients are positive. We could also use 5 x 5 or 7 x 7 mask as per our requirement. We place a 3 x 3 mask on the image. We start from the left hand top corner. We cannot work with the borders and hence are normally left as they are. We then multiply each component of the image with the corresponding value of the mask. Add these values to get the response. Replace the center pixel of the o/p image with this response. We now shift the mask towards the right till we reach the end of the line and then move it downwards.
+
+High Pass filtering: -
+High pass filtering as the name suggests removes the low frequency content from the image. It is used to highlight fine detail in an image or to enhance detail that has been blurred. Mask for the high pass filter is:
+
+One important thing to note from the spatial response is that sum of all the coefficients is zero. We could also use 5 x 5 or 7 x 7 mask as per our requirement. We place a 3 x 3 mask on the image. We start from the left hand top corner. We cannot work with the borders and hence are normally left as they are. We then multiply each component of the image with the corresponding value of the mask. Add these values to get the response. Replace the center pixel of the o/p image with this response. We now shift the mask towards the right till we reach the end of the line and then move it downwards.
+
+Algorithm: -
+
+Image Low Pass Filtering
+Read I/p image
+Ignore the border pixel
+Apply high pass mask to each and every pixel
+Display the o/p image
+
+Image High Pass Filtering
+Read I/p image
+Ignore the border pixel
+Apply high pass mask to each and every pixel
+Display the o/p image
+
+Program:-
+
+%To implement low pass and high pass filtering in spatial domain
+%Pranay Vora Roll no.51
+ 
+clc
+clear all
+close all
+a=imread('cameraman.tif');
+a=double(a);
+[row col]=size(a);
+lowMaskSize=input('Enter size of low mask: ');
+fprintf('Your entered size of low mask is %d\n', lowMaskSize);
+highMaskSize=input('\nEnter size of high mask: ');
+fprintf('Your entered size of high mask is %d', highMaskSize);
+for i=1:lowMaskSize
+    for j=1:lowMaskSize
+        lowMask(i, j)=1/lowMaskSize^2;
+    end
+end
+s=(lowMaskSize+1)/2;
+for x=1:row
+    for y=1:col
+        b(x, y)=a(x, y);
+    end
+end
+for x=s:row-s
+    for y=s:col-s
+        b(x, y)=0;
+    end
+end
+for x=s:row-s
+    for y=s:col-s
+        for i=1:lowMaskSize
+            for j=1:lowMaskSize
+                b(x, y)=a(x-s+i, y-s+j)*lowMask(i, j)+b(x, y);
+            end
+        end
+    end
+end
+for i=1:highMaskSize
+    for j=1:highMaskSize
+        highMask(i, j)=-1;
+    end
+end
+s=(highMaskSize+1)/2;
+highMask(s, s)=highMaskSize^2-1;
+for x=1:row
+    for y=s:col
+        c(x, y)=a(x, y);
+    end
+end
+for x=s:row-s
+    for y=s:col-s
+        c(x, y)=0;
+    end
+end
+for x=s:row-s
+    for y=s:col-s
+        for i=1:highMaskSize
+            for j=1:highMaskSize
+                c(x, y)=a(x-s+i, y-s+j)*highMask(i, j)+c(x, y);
+            end
+        end
+if c(x, y)<0
+    c(x, y)=0;
+end
+    end
+end
+n=0;
+for x=s:row-s
+    for y=s:col-s
+        if c(x, y)>n
+            n=c(x, y);
+        end
+    end
+end
+d=255/n;
+for x=s:row-s
+    for y=s:col-s
+        c(x, y)=d*c(x, y);
+    end
+end
+subplot(3, 1, 1)
+imshow(uint8(a))
+title('Original Image');
+subplot(3, 1, 2)
+imshow(uint8(b))
+title('Low Pass Filtered Image');
+subplot(3, 1, 3)
+imshow(uint8(c))
+title('High Pass Filtered Image');
+gtext('Pranay Vora 51');
+
+Output:
+https://github.com/VoraPranay/MATLAB-Practicals/issues/1#issue-416181252 
+
