@@ -1,0 +1,82 @@
+Aim: - To implement histogram equalization of an image
+
+Tools Used: - MatLab
+
+Theory: - 
+Histogram of a digital image with gray levels in range [0, L-1] is a discrete function h(rk) = nk where rk kth gray level and nk = no. of pixels of an image having gray level rk In histogram there are 3 possibilities as follows, 
+
+For a dark image the components of histogram on the low (dark) side.
+For a bright image the component are on high ( bright ) side &
+For an image with low contrast they are in the middle of gray side.
+
+Histogram equalization is done to spread there component uniformly over the gray scale as far as possible. This is obtained by function,
+Sk=k=0L-1nkN
+
+Thus processed image is obtained by mapping each pixel with level rk into a corresponding pixel with level Sk in o/p image. This transformation is called Histogram equalization
+
+Algorithm: -
+
+Read the i/p image & its size
+Obtain the gray level values of each pixel & divide them by total number of gray level values.
+Implement the function Sk
+Plot the equalized histogram and original histogram.
+Display the original and the new image.
+
+Program:-
+
+% To perform histogram equalization on an image
+% Pranay Vora BE EXTC B 51
+ 
+clc;
+clear all;
+close all;
+p=imread('pout.tif');
+subplot(2,2,1)
+imshow(p);
+title('original image');
+histogram=zeros(1,256);
+[m,n]=size(p);
+for i=1:m
+for j=1:n
+        x=double(p(i,j))+1;
+        x=uint8(x);
+        histogram(x)=histogram(x)+1;
+end
+end
+subplot(2,2,2);
+bar(histogram);
+title('histogram');
+psk=histogram/(m*n);
+sk(1)=psk(1);
+for i=2:256
+    sk(i)=sk(i-1)+psk(i);
+end
+skdash=round(sk*255);
+Ep=zeros(m,n);
+p=double(p);
+for i=1:m;
+for j=1:n;
+        t=(p(i,j)+1);
+        Ep(i,j)=skdash(double(t))-1;
+end
+end
+Ep=uint8(Ep);
+subplot(2,2,3);
+imshow(Ep);
+title('equalized image');
+Ehistogram=zeros(1,256);
+[m,n]=size(p);
+for i=1:m;
+for j=1:n;
+        x=double(Ep(i,j))+1;
+        x=uint8(x);
+        Ehistogram(x)=Ehistogram(x)+1;
+end
+end
+subplot(2,2,4);
+bar(Ehistogram);
+title('equalized histogram');
+gtext('Pranay Vora 51');
+
+Output:
+https://github.com/VoraPranay/MATLAB-Practicals/issues/2#issue-416184314
